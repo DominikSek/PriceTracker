@@ -1,5 +1,4 @@
-from price_tracker import *
-
+from price_tracker import UrlParser,
 
 if __name__ == "__main__":
     url_parser = UrlParser("https://www.google.com", 45)
