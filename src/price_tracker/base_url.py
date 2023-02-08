@@ -4,7 +4,6 @@
 import requests
 import validators
 from bs4 import BeautifulSoup
-from requests import Response
 
 
 class UrlParser:
@@ -17,7 +16,7 @@ class UrlParser:
         self.alert_price = alert_price
 
     @staticmethod
-    def get_response(url) -> Response:
+    def get_response(url) -> requests.Response:
         validate = validators.url(url)
 
         if not validate:
