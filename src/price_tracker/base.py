@@ -9,11 +9,12 @@ from requests import Response
 
 class UrlParser:
 
-    def __init__(self, url):
+    def __init__(self, url, alert_price):
         self.response = self.get_response(url)
 
         self.url = url
         self.title = self.get_title()
+        self.alert_price = alert_price
 
     @staticmethod
     def get_response(url) -> Response:
@@ -34,4 +35,4 @@ class UrlParser:
         return soup.find_all('title')[0].get_text()
 
     def __str__(self):
-        return f"{self.title}\n{self.url}"
+        return f"{self.title} with the price: {self.alert_price} €\n{self.url}"
