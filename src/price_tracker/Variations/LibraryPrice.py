@@ -1,4 +1,4 @@
-from src.price_tracker.BaseUrl import UrlParser
+from ..BaseUrl import UrlParser
 
 
 class LibraryPrice(UrlParser):

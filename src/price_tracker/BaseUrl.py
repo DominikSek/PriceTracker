@@ -8,7 +8,7 @@ from bs4 import BeautifulSoup
 
 class UrlParser:
 
-    def __init__(self, url, alert_price):
+    def __init__(self, url, alert_price) -> None:
         self.response = self.get_response(url)
 
         self.url = url
@@ -33,5 +33,5 @@ class UrlParser:
 
         return soup.find_all('title')[0].get_text()
 
-    def __str__(self):
+    def __str__(self) -> str:
         return f"{self.title} with the price: {self.alert_price} €\n{self.url}"
