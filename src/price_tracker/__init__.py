@@ -1,6 +1,6 @@
 from src.price_tracker.CsvURL import CsvURL
-from src.price_tracker.base_url import UrlParser
-from src.price_tracker.library_price import LibraryPrice
+from src.price_tracker.BaseUrl import UrlParser
+from src.price_tracker.LibraryPrice import LibraryPrice
 import os
 import sys
 
