@@ -34,4 +34,4 @@ class UrlParser:
         return soup.find_all('title')[0].get_text()
 
     def __str__(self) -> str:
-        return f"{self.title} with the price: {self.alert_price} €\n{self.url}"
+        return f"{self.title.strip()} with the alert price: {self.alert_price} €\n"

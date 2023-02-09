@@ -25,10 +25,12 @@ class CsvURL:
             else:
                 self.urls[row["ID"]] = RawPrice(row["urls"], row["alert_price"])
 
-    def __str__(self):
+    def __str__(self) -> str:
         fstr = ""
         for id, url in self.urls.items():
-            fstr += f"{id}{url}\n"
+            fstr += f"ID = {id}\n"
+            fstr += f"------------------------------------\n"
+            fstr += f"{url}\n"
         return fstr
 
 
