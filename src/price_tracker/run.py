@@ -1,13 +1,21 @@
-from price_tracker import UrlParser, LibraryPrice, CsvURL
+from . import UrlParser, CsvURL, constants
+from .Variations import LibraryPrice, RawPrice
 
 
-def run(file_path, variation):
+def run(variation):
     url_parser = UrlParser("https://www.google.com", 45)
     print(url_parser.url, url_parser.title)
 
-    library = LibraryPrice("https://www.google.com", 45)
+    library = LibraryPrice.LibraryPrice("https://www.google.com", 45)
     print(library)
     library.find_prices_library()
 
-    csv_lib = CsvURL(file_path, variation)
+    if variation.upper() == "LIBRARY":
+        csv_lib = CsvURL(constants.FILE_PATH, constants.LIBRARY)
+    elif variation.upper() == "RAW":
+        csv_lib = CsvURL(constants.FILE_PATH, constants.RAW)
+    else:
+        raise SyntaxError(f"Wrong variation ({variation}), only library and raw exist.")
+
+    print(csv_lib)
 

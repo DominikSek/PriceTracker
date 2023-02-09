@@ -1,9 +1,7 @@
 import pandas as pd
-
-from price_tracker import LibraryPrice, RawPrice
-
-LIBRARY = 0
-RAW = 1
+from .Variations.LibraryPrice import LibraryPrice
+from .Variations.RawPrice import RawPrice
+from . import constants
 
 
 class CsvURL:
@@ -20,8 +18,15 @@ class CsvURL:
 
         self.fetch_urls(dataframe)
 
-    def fetch_urls(self, dataframe) -> dict:
-        pass
+    def fetch_urls(self, dataframe) -> None:
+        for row in dataframe.to_dict("records"):
+            if self.type == constants.LIBRARY:
+                self.urls[row["ID"]] = LibraryPrice(row["urls"], row["alert_price"])
+            else:
+                self.urls[row["ID"]] = RawPrice(row["urls"], row["alert_price"])
+
+
+
 
 
 
