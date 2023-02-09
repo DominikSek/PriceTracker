@@ -1,11 +1,7 @@
-from src.price_tracker.CsvURL import CsvURL
-from src.price_tracker.BaseUrl import UrlParser
-from src.price_tracker.LibraryPrice import LibraryPrice
-import os
-import sys
+from price_tracker.CsvURL import CsvURL
+from price_tracker.BaseUrl import UrlParser
+from price_tracker.run import run
+from price_tracker.constants import *
 
-FILES = "files"
-ROOT_DIR = os.path.dirname(os.path.dirname(__file__)).split("\src")[0]
 
-if len(sys.argv) < 3:
-    raise TypeError(f"Not enough input arguments. (Expected 2, but got {len(sys.argv)})")
+__all__ = ["Variations", "BaseUrl", "CsvURL", "run", "constants"]
