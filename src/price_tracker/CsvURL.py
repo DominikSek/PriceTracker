@@ -1,5 +1,5 @@
 import pandas as pd
-from .Variations.LibraryPrice import LibraryPrice
+from .Variations.ScrapePrice import ScrapePrice
 from .Variations.RawPrice import RawPrice
 from . import constants
 
@@ -21,7 +21,7 @@ class CsvURL:
     def fetch_urls(self, dataframe) -> None:
         for row in dataframe.to_dict("records"):
             if self.type == constants.LIBRARY:
-                self.urls[row["ID"]] = LibraryPrice(row["urls"], row["alert_price"])
+                self.urls[row["ID"]] = ScrapePrice(row["urls"], row["alert_price"])
             else:
                 self.urls[row["ID"]] = RawPrice(row["urls"], row["alert_price"])
 
@@ -29,8 +29,8 @@ class CsvURL:
         fstr = ""
         for id, url in self.urls.items():
             fstr += f"ID = {id}\n"
-            fstr += f"------------------------------------\n"
             fstr += f"{url}\n"
+            fstr += f"------------------------------------\n"
         return fstr
 
 

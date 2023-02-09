@@ -4,7 +4,7 @@ from price_parser import Price
 from ..BaseUrl import UrlParser
 
 
-class LibraryPrice(UrlParser):
+class ScrapePrice(UrlParser):
 
     def __init__(self, *args, **kwargs) -> None:
         super(self.__class__, self).__init__(*args, **kwargs)
@@ -23,16 +23,18 @@ class LibraryPrice(UrlParser):
         try:
             self.price = Price.fromstring(el.text).amount_float
         except Exception as e:
-            raise SystemExit(e)
+            raise ValueError(e)
 
         self.alert_flag = self.price < self.alert_price
 
     def __str__(self):
-        fstr = super(LibraryPrice, self).__str__() + f"With the price of {self.price} "
+        fstr = super(ScrapePrice, self).__str__() + f"is currently listed with the price of {self.price} and "
         if self.alert_flag:
             return fstr + "is on discount!"
-        else:
+        elif not self.alert_flag and self.price != "Not Available":
             return fstr + f"is not on discount!"
+        else:
+            return super(ScrapePrice, self).__str__() + f"is not available."
 
 
 

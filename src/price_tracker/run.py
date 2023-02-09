@@ -1,5 +1,5 @@
 from . import UrlParser, CsvURL, constants
-from .Variations import LibraryPrice, RawPrice
+from .Variations import ScrapePrice, RawPrice
 
 
 def run(variation) -> None:

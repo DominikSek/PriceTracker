@@ -1,3 +1,3 @@
 
 
-__all__ = ["LibraryPrice", "RawPrice"]
+__all__ = ["ScrapePrice.py", "RawPrice"]
