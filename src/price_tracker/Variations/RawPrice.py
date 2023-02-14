@@ -23,6 +23,7 @@ class RawPrice(UrlParser):
         try:
             price = dom.xpath('//span[@class="a-offscreen"]/text()')[0]
             self.price = price.replace(',', '').replace('€', '').replace('.00','')
+            #self.alert_flag = self.price < self.alert_price
         except Exception as e:
             self.price = "Not Available"
 
