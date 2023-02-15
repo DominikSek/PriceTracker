@@ -1,4 +1,3 @@
-import smtplib
 from bs4 import BeautifulSoup
 from price_parser import Price
 from ..BaseUrl import UrlParser

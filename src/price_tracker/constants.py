@@ -2,7 +2,9 @@
 
 LIBRARY = 0
 RAW = 1
-FILE_PATH = "../../files/test2.csv"
+FILES_PATH = "../../files/"
+TEST_FILE = "test2.csv"
+SAVE_PATH = "../../save.txt"
 SAVE_TO_CSV = True
 PRICES_CSV = "prices.csv"
 SEND_MAIL = True

@@ -3,19 +3,21 @@ from price_tracker import constants
 # Tu treba napravit da nije samo CLI neg priko GUI
 import bcrypt
 from getpass import getpass
+from twilio.rest import Client
+import configparser
 
 
-def email_handler(hash_key):
+def email_handler():
 
     email = input("Enter your email: ")
     password = input("Enter your password: ")
-
+    #password = getpass(prompt="Enter your password: ")
     #Login
     if os.path.exists(constants.SAVE_PATH):
         with open(constants.SAVE_PATH) as file:
             user, passw = file.readline().strip().split(":")
             if email == user:
-                if bcrypt.checkpw((password+hash_key).encode('utf-8'), passw.encode('utf-8')):
+                if bcrypt.checkpw(password.encode('utf-8'), passw.encode('utf-8')):
                     print("Login successful")
                     return True
                 else:
@@ -28,12 +30,27 @@ def email_handler(hash_key):
     #Register
     else:
         with open(constants.SAVE_PATH, 'w') as file:
-            hashed_password = bcrypt.hashpw((password+hash_key).encode('utf-8'), bcrypt.gensalt())
+            hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
             file.write(f"{email}:{hashed_password.decode('utf-8')}\n")
             print("Register successful")
             return True
 
 
-hash_key = "123"
+def phone_handler():
+    config = configparser.ConfigParser()
+    config.read('../../cf.ini')
+
+    message = f"There is a price drop of 10 for Monitor"
+    account_sid = config["phone"]["sid"]
+    auth_token = config["phone"]["token"]
+    client = Client(account_sid, auth_token)
+
+    _ = client.messages.create(
+        from_=config["phone"]["from"],
+        body=message,
+        to=config["phone"]["to"]
+    )
+
+
 if __name__ == "__main__":
-    email_handler(hash_key)
+    phone_handler()
