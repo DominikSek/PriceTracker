@@ -22,10 +22,17 @@ class RawPrice(UrlParser):
 
         try:
             price = dom.xpath('//span[@class="a-offscreen"]/text()')[0]
-            self.price = price.replace(',', '').replace('€', '').replace('.00','')
-            #self.alert_flag = self.price < self.alert_price
+            self.price = float(price.replace(',', '').replace('€', '').replace('.00',''))
+            self.alert_flag = self.price < self.alert_price
         except Exception as e:
             self.price = "Not Available"
+
+        if self.alert_flag:
+            percentage = (self.alert_price - self.price)/self.alert_price
+            self.alert(percentage)
+
+    def alert(self, percentage):
+        print(f"There is {percentage} drop to the price of {self.title}!")
 
     def __str__(self) -> str:
         fstr = super(RawPrice, self).__str__() + f"is currently listed with the price of {self.price} and "
