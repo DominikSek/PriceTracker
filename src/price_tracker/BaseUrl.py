@@ -10,8 +10,9 @@ from .constants import HEADER
 
 class UrlParser:
 
-    def __init__(self, url, alert_price) -> None:
+    def __init__(self, url, alert_price, percentage) -> None:
         self.url = url
+        self.percentage = percentage
         self.response = None
         self.get_response(url)
 
