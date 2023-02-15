@@ -36,21 +36,19 @@ def email_handler():
             return True
 
 
-def phone_handler():
+def phone_handler(item):
     config = configparser.ConfigParser()
     config.read('../../cf.ini')
 
-    message = f"There is a price drop of 10 for Monitor"
+    message = f"There is a price drop of {item.percentage*100} % for {item.title}.\nIt is now {item.price} €"
     account_sid = config["phone"]["sid"]
     auth_token = config["phone"]["token"]
     client = Client(account_sid, auth_token)
+    print(config["phone"]["from"])
+    print(config["phone"]["to"])
 
     _ = client.messages.create(
         from_=config["phone"]["from"],
         body=message,
         to=config["phone"]["to"]
     )
-
-
-if __name__ == "__main__":
-    phone_handler()

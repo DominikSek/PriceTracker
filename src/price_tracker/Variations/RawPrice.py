@@ -5,6 +5,7 @@ import time
 import random
 import csv
 from ..BaseUrl import UrlParser
+from ..notify import phone_handler
 
 
 class RawPrice(UrlParser):
@@ -14,6 +15,8 @@ class RawPrice(UrlParser):
         self.price = -1
         self.alert_flag = False
         self.find_raw_prices_library()
+        if self.alert_flag:
+            phone_handler(self)
 
     #Currently working only on scraping webpage
     def find_raw_prices_library(self) -> None:
@@ -24,7 +27,7 @@ class RawPrice(UrlParser):
             price = dom.xpath('//span[@class="a-offscreen"]/text()')[0]
             self.price = float(price.replace(',', '').replace('€', '').replace('.00',''))
             self.alert_flag = self.price < self.alert_price
-        except Exception as e:
+        except Exception:
             self.price = "Not Available"
 
         if self.alert_flag:
