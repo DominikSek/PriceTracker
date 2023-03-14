@@ -27,9 +27,9 @@ class CsvURL:
             elif math.isnan(row["alert_price"]):
                 warnings.warn(f"Alert price for the url {row['urls']} is not a number")
             if self.type == constants.LIBRARY:
-                self.urls[row["ID"]] = ScrapePrice(row["urls"], row["alert_price"], percentage)
+                self.urls[row["ID"]] = ScrapePrice(row["urls"].strip(), row["alert_price"], percentage)
             else:
-                self.urls[row["ID"]] = RawPrice(row["urls"], row["alert_price"], percentage)
+                self.urls[row["ID"]] = RawPrice(row["urls"].strip(), row["alert_price"], percentage)
 
     def __str__(self) -> str:
         fstr = ""

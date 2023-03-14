@@ -1,22 +1,19 @@
-import requests
 from bs4 import BeautifulSoup
 from lxml import etree as et
-import time
-import random
-import csv
 from ..BaseUrl import UrlParser
-from ..notify import phone_handler
+from ..notify import *
 
 
 class RawPrice(UrlParser):
 
     def __init__(self, *args, **kwargs) -> None:
         super(self.__class__, self).__init__(*args, **kwargs)
+        self.image = ""
         self.price = -1
         self.alert_flag = False
         self.find_raw_prices_library()
         if self.alert_flag:
-            phone_handler(self)
+            outlook_handler(self)
 
     #Currently working only on scraping webpage
     def find_raw_prices_library(self) -> None:
@@ -25,17 +22,19 @@ class RawPrice(UrlParser):
 
         try:
             price = dom.xpath('//span[@class="a-offscreen"]/text()')[0]
+            self.image = dom.xpath('//img[@id="landingImage"]')[0].get("src")
             self.price = float(price.replace(',', '').replace('€', '').replace('.00',''))
             self.alert_flag = self.price < self.alert_price
         except Exception:
             self.price = "Not Available"
 
         if self.alert_flag:
+
             percentage = (self.alert_price - self.price)/self.alert_price
             self.alert(percentage)
 
     def alert(self, percentage):
-        print(f"There is {percentage} drop to the price of {self.title}!")
+        print(f"There is {percentage*100}% drop to the price of {self.title}!")
 
     def __str__(self) -> str:
         fstr = super(RawPrice, self).__str__() + f"is currently listed with the price of {self.price} and "
