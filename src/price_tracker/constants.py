@@ -1,10 +1,12 @@
 # File for constants
+from pathlib import Path
 
+_ABS_PATH = str(Path(__file__).resolve().parents[2])
 LIBRARY = 0
 RAW = 1
-FILES_PATH = "../../files/"
-TEST_FILE = "test2.csv"
-SAVE_PATH = "../../save.txt"
+FILES_PATH = _ABS_PATH + "/files"
+URL_FILE = "url_data.csv"
+SAVE_PATH = _ABS_PATH + "/save"
 SAVE_TO_CSV = True
 PRICES_CSV = "prices.csv"
 SEND_MAIL = True
